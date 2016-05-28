@@ -156,5 +156,23 @@ namespace SittingDbase
             frmStretch stretch = new frmStretch();
             stretch.ShowDialog(this);
         }
+
+
+        // Public API for testing
+        public String getTxtEncouragement()
+        {
+            return this.txtEncouragement.Text;
+        }
+
+        public void triggerTruePopup()
+        {
+            Popup(true);
+        }
+
+        public void triggerFalsePopup(bool displayTrayBalloon)
+        {
+            this.displayedSystemTrayBalloon = !displayTrayBalloon;
+            Popup(false);
+        }
     }
 }

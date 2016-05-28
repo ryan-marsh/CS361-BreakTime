@@ -93,6 +93,28 @@ namespace SittingDbase
             GetRandomStretch();
         }
 
+
+        // Public API for testing
+        public void callGetRandomStretch()
+        {
+            this.GetRandomStretch();
+        }
+
+        public bool hasImage()
+        {
+            return this.pictureStretch.Image != null;
+        }
+
+        public bool hasDescription()
+        {
+            return this.txtDescription.Text != "Description:\r\n";
+        }
+
+        public bool hasName()
+        {
+            return this.txtName.Text != null;
+        }
+
         //private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         //{
         //    if (!this.quit)
