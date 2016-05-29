@@ -81,8 +81,10 @@ namespace SittingDbase
                 if (encouragement != null)
                 {
                     this.txtEncouragement.Text =
-                        "It's time for a break.\r\n" +
-                        encouragement.description;
+                        string.Format(
+                            "It's time for a break, {0}!\r\n{1}",
+                            Settings.UserName,
+                            encouragement.description);
                 }
             }
             else
