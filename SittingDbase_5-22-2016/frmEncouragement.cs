@@ -69,11 +69,7 @@ namespace BreakTime
                 Encouragement encouragement = GetEncouragement();
                 if (encouragement != null)
                 {
-                    this.txtEncouragement.Text =
-                        string.Format(
-                            "It's time for a break, {0}!\r\n{1}",
-                            Settings.UserName,
-                            encouragement.description);
+                    this.txtEncouragement.Text = encouragement.description;
                 }
             }
             else
@@ -88,6 +84,7 @@ namespace BreakTime
                 }
                 starttime = DateTime.Now;
             }
+            this.lblPrompt.Text = string.Format(Settings.UserGreetingFormat, Settings.UserName);
             this.timer.Enabled = !enable;
         }
 
@@ -143,6 +140,7 @@ namespace BreakTime
             {
                 Settings.Interval = dlg.Interval;
                 Settings.UserName = dlg.UserName;
+                this.lblPrompt.Text = string.Format(Settings.UserGreetingFormat, Settings.UserName);
                 Settings.WriteUserSettings(); // save user settings to disk if they have changed
             }
         }

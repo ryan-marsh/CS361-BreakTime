@@ -65,6 +65,11 @@ namespace BreakTime
         #region Settings Not User Modifiable
 
         /// <summary>
+        /// Gets the string format to use for the user greeting.
+        /// </summary>
+        public static readonly string UserGreetingFormat = "It's time for a break, {0}!";
+
+        /// <summary>
         /// Gets the path to the settings file that stores user-modifiable settings.
         /// </summary>
         public static readonly string SettingsFilePath = "user_settings.json";
