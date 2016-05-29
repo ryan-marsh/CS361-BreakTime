@@ -1,4 +1,4 @@
-﻿namespace SittingDbase
+﻿namespace BreakTime
 {
     partial class frmEncouragement
     {
@@ -45,6 +45,7 @@
             this.btnContextQuit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.systemTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.btnWhatHurts = new System.Windows.Forms.ToolStripButton();
             this.toolstrip.SuspendLayout();
             this.contextMenuSystemTray.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +66,8 @@
             // 
             this.toolstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnResources,
-            this.mnuFile});
+            this.mnuFile,
+            this.btnWhatHurts});
             this.toolstrip.Location = new System.Drawing.Point(0, 0);
             this.toolstrip.Name = "toolstrip";
             this.toolstrip.Size = new System.Drawing.Size(448, 25);
@@ -79,8 +81,8 @@
             this.btnResources.Image = ((System.Drawing.Image)(resources.GetObject("btnResources.Image")));
             this.btnResources.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnResources.Name = "btnResources";
-            this.btnResources.Size = new System.Drawing.Size(73, 22);
-            this.btnResources.Text = "&Resources...";
+            this.btnResources.Size = new System.Drawing.Size(111, 22);
+            this.btnResources.Text = "Online &Resources...";
             this.btnResources.Click += new System.EventHandler(this.btnResources_Click);
             // 
             // mnuFile
@@ -99,19 +101,19 @@
             // btnSettings
             // 
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(125, 22);
+            this.btnSettings.Size = new System.Drawing.Size(152, 22);
             this.btnSettings.Text = "Settings...";
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(122, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // btnFileQuit
             // 
             this.btnFileQuit.Name = "btnFileQuit";
-            this.btnFileQuit.Size = new System.Drawing.Size(125, 22);
+            this.btnFileQuit.Size = new System.Drawing.Size(152, 22);
             this.btnFileQuit.Text = "&Quit";
             this.btnFileQuit.Click += new System.EventHandler(this.btnFileQuit_Click);
             // 
@@ -179,6 +181,16 @@
             this.systemTrayIcon.Visible = true;
             this.systemTrayIcon.DoubleClick += new System.EventHandler(this.systemTrayIcon_DoubleClick);
             // 
+            // btnWhatHurts
+            // 
+            this.btnWhatHurts.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnWhatHurts.Image = ((System.Drawing.Image)(resources.GetObject("btnWhatHurts.Image")));
+            this.btnWhatHurts.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnWhatHurts.Name = "btnWhatHurts";
+            this.btnWhatHurts.Size = new System.Drawing.Size(76, 22);
+            this.btnWhatHurts.Text = "What &Hurts?";
+            this.btnWhatHurts.Click += new System.EventHandler(this.btnWhatHurts_Click);
+            // 
             // frmEncouragement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -220,5 +232,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem btnFileQuit;
+        private System.Windows.Forms.ToolStripButton btnWhatHurts;
     }
 }

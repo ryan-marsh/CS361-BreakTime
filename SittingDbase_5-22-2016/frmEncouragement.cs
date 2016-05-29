@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Net;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 
-namespace SittingDbase
+namespace BreakTime
 {
     public partial class frmEncouragement : Form
     {
@@ -149,14 +138,43 @@ namespace SittingDbase
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("TODO: settings dialog goes here!");
-            Settings.WriteUserSettings(); // save user settings to disk if they have changed
+            dlgSettings dlg = new dlgSettings();
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                Settings.Interval = dlg.Interval;
+                Settings.UserName = dlg.UserName;
+                Settings.WriteUserSettings(); // save user settings to disk if they have changed
+            }
         }
 
         private void btnFileQuit_Click(object sender, EventArgs e)
         {
             this.quit = true;
             this.Close();
+        }
+
+        private void btnResources_Click(object sender, EventArgs e)
+        {
+            UriBuilder builder = new UriBuilder();
+
+            try
+            {
+                builder.Scheme = Settings.Scheme;
+                builder.Host = Settings.Server;
+                builder.Path = Settings.ResourcesPath;
+                System.Diagnostics.Process.Start(builder.ToString()); // will launch the user's default browser and display the specified page
+            }
+            catch (Exception) { }
+        }
+
+        private void btnWhatHurts_Click(object sender, EventArgs e)
+        {
+            dlgHurts dlg = new dlgHurts();
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                Settings.WhatHurts = dlg.WhatHurts;
+                Settings.WriteUserSettings(); // save user settings to disk if they have changed
+            }
         }
 
         #region Public API for testing
@@ -177,13 +195,5 @@ namespace SittingDbase
         }
         #endregion
 
-        private void btnResources_Click(object sender, EventArgs e)
-        {
-            UriBuilder builder = new UriBuilder();
-            builder.Scheme = Settings.Scheme;
-            builder.Host = Settings.Server;
-            builder.Path = Settings.ResourcesPath;
-            System.Diagnostics.Process.Start(builder.ToString()); // will launch the user's default browser and display the specified page
-        }
     }
 }

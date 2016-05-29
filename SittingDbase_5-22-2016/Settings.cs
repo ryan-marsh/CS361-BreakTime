@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Json;
 
-namespace SittingDbase
+namespace BreakTime
 {
     public static class Settings
     {
@@ -40,6 +40,7 @@ namespace SittingDbase
 
             Interval = TimeSpan.FromSeconds(settings.interval);
             UserName = settings.username;
+            WhatHurts = settings.hurts;
         }
 
         public static void WriteUserSettings()
@@ -53,7 +54,7 @@ namespace SittingDbase
                 using (FileStream settingsFile = new FileStream(SettingsFilePath, FileMode.Create, FileAccess.Write))
                 {
                     // rewrites the whole file--not a great way to go, but can be modified in the future
-                    serializer.WriteObject(settingsFile, new UserSettings() { username = UserName, interval = (int)Interval.TotalSeconds });
+                    serializer.WriteObject(settingsFile, new UserSettings() { username = UserName, interval = (int)Interval.TotalSeconds, hurts = WhatHurts });
                 }
             }
             catch (Exception)
@@ -106,6 +107,11 @@ namespace SittingDbase
         /// Gets the user's specified stretch break interval.
         /// </summary>
         public static TimeSpan Interval = TimeSpan.FromMinutes(45.0);
+
+        /// <summary>
+        /// Gets the user's indicated hurts.
+        /// </summary>
+        public static Hurts WhatHurts = new Hurts();
 
         #endregion
     }
