@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContracts.cs" />
     <Compile Include="frmEncouragement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,8 +64,10 @@
     <Compile Include="frmStretch.Designer.cs">
       <DependentUpon>frmStretch.cs</DependentUpon>
     </Compile>
+    <Compile Include="HttpRequestHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="frmEncouragement.resx">
       <DependentUpon>frmEncouragement.cs</DependentUpon>
     </EmbeddedResource>

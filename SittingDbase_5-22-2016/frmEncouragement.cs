@@ -16,66 +16,49 @@ namespace SittingDbase
 {
     public partial class frmEncouragement : Form
     {
-        private const string SERVER = "sittingdbase.appspot.com";
+        private bool displayedSystemTrayBalloon;
+        DateTime starttime;
 
         public frmEncouragement()
         {
             InitializeComponent();
         }
 
-        [DataContract]
-        private class Encouragement
+        public Encouragement GetEncouragement()
         {
-            [DataMember]
-            public long key;
-
-            [DataMember]
-            public string description;
-        }
-
-        public string GetEncouragement()
-        {
+            // see: https://msdn.microsoft.com/en-us/library/system.uribuilder(v=vs.110).aspx
+            // for more information about the UriBuilder class
             UriBuilder builder = new UriBuilder();
-            HttpWebRequest request;
-            HttpWebResponse response;
-            Stream content;
 
             try
             {
-                // see: https://msdn.microsoft.com/en-us/library/system.uribuilder(v=vs.110).aspx
-                builder.Scheme = "http";
-                builder.Host = SERVER;
-                builder.Path = "encourage";
-                // see: http://www.codeproject.com/Articles/6554/How-to-use-HttpWebRequest-and-HttpWebResponse-in-N
-                // and: https://msdn.microsoft.com/en-us/library/system.net.httpwebrequest(v=vs.110).aspx
-                request = WebRequest.CreateHttp(builder.ToString());
-                response = request.GetResponse() as HttpWebResponse;
-                if (response != null)
-                {
-                    // see: http://stackoverflow.com/questions/18242429/how-to-deserialize-json-data
-                    content = response.GetResponseStream();
-                    var s = new DataContractJsonSerializer(typeof(Encouragement));
-                    var j = (Encouragement)s.ReadObject(content);
-                    content.Dispose();
-                    response.Dispose();
-                    return j.description;
-                }
-
+                builder.Scheme = Settings.Scheme;
+                builder.Host = Settings.Server;
+                builder.Path = Settings.EncouragementPath;
+                return HttpRequestHelper.RequestObject<Encouragement>(builder.ToString());
             }
             catch (Exception)
             {
             }
-            return null;
+
+            return null; // failed
         }
 
-        DateTime starttime;
-        TimeSpan timeout = TimeSpan.FromSeconds(30.0);
         private void timer_Tick(object sender, EventArgs e)
         {
-            if (DateTime.Now - starttime > timeout)
+            TimeSpan dt = DateTime.Now - starttime;
+            if (dt > Settings.Interval)
             {
+                systemTrayIcon.Text = "Time for a break!";
                 // action on timeout goes here
                 Popup(true);
+            }
+            else
+            {
+                TimeSpan remaining = Settings.Interval - dt;
+                int seconds = (int)remaining.TotalSeconds;
+                remaining = TimeSpan.FromSeconds(seconds);
+                systemTrayIcon.Text = "Next break in " + remaining.ToString();
             }
         }
 
@@ -87,7 +70,6 @@ namespace SittingDbase
             }
         }
 
-        private bool displayedSystemTrayBalloon;
         private void Popup(bool enable)
         {
             this.systemTrayIcon.Visible = !enable;
@@ -95,7 +77,13 @@ namespace SittingDbase
             if (this.WindowState == FormWindowState.Minimized) this.WindowState = FormWindowState.Normal;
             if (enable)
             {
-                this.txtEncouragement.Text = GetEncouragement();
+                Encouragement encouragement = GetEncouragement();
+                if (encouragement != null)
+                {
+                    this.txtEncouragement.Text =
+                        "It's time for a break.\r\n" +
+                        encouragement.description;
+                }
             }
             else
             {
@@ -157,8 +145,19 @@ namespace SittingDbase
             stretch.ShowDialog(this);
         }
 
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("TODO: settings dialog goes here!");
+            Settings.WriteUserSettings(); // save user settings to disk if they have changed
+        }
 
-        // Public API for testing
+        private void btnFileQuit_Click(object sender, EventArgs e)
+        {
+            this.quit = true;
+            this.Close();
+        }
+
+        #region Public API for testing
         public String getTxtEncouragement()
         {
             return this.txtEncouragement.Text;
@@ -173,6 +172,16 @@ namespace SittingDbase
         {
             this.displayedSystemTrayBalloon = !displayTrayBalloon;
             Popup(false);
+        }
+        #endregion
+
+        private void btnResources_Click(object sender, EventArgs e)
+        {
+            UriBuilder builder = new UriBuilder();
+            builder.Scheme = Settings.Scheme;
+            builder.Host = Settings.Server;
+            builder.Path = Settings.ResourcesPath;
+            System.Diagnostics.Process.Start(builder.ToString()); // will launch the user's default browser and display the specified page
         }
     }
 }

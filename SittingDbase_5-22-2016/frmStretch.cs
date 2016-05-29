@@ -24,23 +24,6 @@ namespace SittingDbase
             InitializeComponent();
         }
 
-        [DataContract]
-        private class Stretch
-        {
-            // see: https://msdn.microsoft.com/en-us/library/bb410770(v=vs.110).aspx
-            [DataMember]
-            public long key;
-
-            [DataMember]
-            public string name;
-
-            [DataMember]
-            public string imgURL;
-
-            [DataMember]
-            public string description;
-        }
-
         private void btnRandom_Click(object sender, EventArgs e)
         {
             GetRandomStretch();
@@ -48,43 +31,35 @@ namespace SittingDbase
 
         private void GetRandomStretch()
         {
-
             // see: https://msdn.microsoft.com/en-us/library/system.uribuilder(v=vs.110).aspx
+            // for more information about the UriBuilder class
             UriBuilder builder = new UriBuilder();
-            builder.Scheme = "http";
-            builder.Host = SERVER;
-            builder.Path = "stretch";
+            Stretch stretch = null;
+            Image image = null;
 
-            // see: http://www.codeproject.com/Articles/6554/How-to-use-HttpWebRequest-and-HttpWebResponse-in-N
-            // and: https://msdn.microsoft.com/en-us/library/system.net.httpwebrequest(v=vs.110).aspx
-            HttpWebRequest request = WebRequest.CreateHttp(builder.ToString());
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            if (response != null)
+            try
             {
-                // see: http://stackoverflow.com/questions/18242429/how-to-deserialize-json-data
-                Stream content = response.GetResponseStream();
-                var s = new DataContractJsonSerializer(typeof(Stretch));
-                var j = (Stretch)s.ReadObject(content);
-                content.Dispose();
-                response.Dispose();
+                // get stretch object
+                builder.Scheme = Settings.Scheme;
+                builder.Host = Settings.Server;
+                builder.Path = Settings.StretchPath;
+                stretch = HttpRequestHelper.RequestObject<Stretch>(builder.ToString());
 
-                builder.Path = j.imgURL;
-                request = WebRequest.CreateHttp(builder.ToString());
-                response = request.GetResponse() as HttpWebResponse;
+                // get image
+                builder.Path = stretch.imgURL;
+                image = HttpRequestHelper.RequestImage(builder.ToString());
 
-                // see: https://msdn.microsoft.com/en-us/library/1kcb3wy4(v=vs.110).aspx
-                Image img = Image.FromStream(response.GetResponseStream());
-                content.Dispose();
-                response.Dispose();
-
+                // populate dialog
                 Image existing = this.pictureStretch.Image;
-                this.pictureStretch.Image = img;
+                this.pictureStretch.Image = image;
                 if (existing != null) existing.Dispose(); // clean up
 
-                this.txtName.Text = j.name;
-
-                this.txtDescription.Clear();
-                this.txtDescription.AppendText("Description:\r\n" + j.description);
+                this.txtName.Text = stretch.name;
+                this.txtDescription.Text = "Description:\r\n" + stretch.description;
+                this.txtStatus.Text = string.Format("Retrieved: {0}", DateTime.Now);
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -113,6 +88,11 @@ namespace SittingDbase
         public bool hasName()
         {
             return this.txtName.Text != null;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
 
         //private void Form1_FormClosing(object sender, FormClosingEventArgs e)
