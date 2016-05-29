@@ -55,7 +55,7 @@ namespace SittingDbase
                 if (existing != null) existing.Dispose(); // clean up
 
                 this.txtName.Text = stretch.name;
-                this.txtDescription.Text = "Description:\r\n" + stretch.description;
+                this.txtDescription.Text = stretch.description;
                 this.txtStatus.Text = string.Format("Retrieved: {0}", DateTime.Now);
             }
             catch (Exception)
@@ -82,17 +82,12 @@ namespace SittingDbase
 
         public bool hasDescription()
         {
-            return this.txtDescription.Text != "Description:\r\n";
+            return !string.IsNullOrEmpty(this.txtDescription.Text);
         }
 
         public bool hasName()
         {
-            return this.txtName.Text != null;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            return !string.IsNullOrEmpty(this.txtName.Text);
         }
 
         //private void Form1_FormClosing(object sender, FormClosingEventArgs e)

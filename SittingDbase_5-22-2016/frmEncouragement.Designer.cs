@@ -99,19 +99,19 @@
             // btnSettings
             // 
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(152, 22);
+            this.btnSettings.Size = new System.Drawing.Size(125, 22);
             this.btnSettings.Text = "Settings...";
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(122, 6);
             // 
             // btnFileQuit
             // 
             this.btnFileQuit.Name = "btnFileQuit";
-            this.btnFileQuit.Size = new System.Drawing.Size(152, 22);
+            this.btnFileQuit.Size = new System.Drawing.Size(125, 22);
             this.btnFileQuit.Text = "&Quit";
             this.btnFileQuit.Click += new System.EventHandler(this.btnFileQuit_Click);
             // 
@@ -190,6 +190,7 @@
             this.Controls.Add(this.txtEncouragement);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmEncouragement";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Break Time!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmEncouragement_FormClosing);
             this.Load += new System.EventHandler(this.frmEncouragement_Load);
