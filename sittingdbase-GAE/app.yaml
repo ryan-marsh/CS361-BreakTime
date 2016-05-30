@@ -9,9 +9,12 @@ handlers:
   static_files: images/\1
   upload: images/(.*\.(bmp|gif|ico|jpeg|jpg|png))
 
+- url: /resources/(.+)
+  static_files: resources/\1
+  upload: resources/(.+)  
+  
 - url: /.*
   script: main.application
-
 
   
 libraries:
