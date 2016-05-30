@@ -1,4 +1,4 @@
-﻿namespace SittingDbase
+﻿namespace BreakTime
 {
     partial class frmEncouragement
     {
@@ -37,6 +37,7 @@
             this.btnSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnFileQuit = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnWhatHurts = new System.Windows.Forms.ToolStripButton();
             this.btnShowStretch = new System.Windows.Forms.Button();
             this.btnNotNow = new System.Windows.Forms.Button();
             this.contextMenuSystemTray = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -45,6 +46,7 @@
             this.btnContextQuit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.systemTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.lblPrompt = new System.Windows.Forms.Label();
             this.toolstrip.SuspendLayout();
             this.contextMenuSystemTray.SuspendLayout();
             this.SuspendLayout();
@@ -56,16 +58,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEncouragement.AutoEllipsis = true;
             this.txtEncouragement.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEncouragement.Location = new System.Drawing.Point(12, 25);
+            this.txtEncouragement.Location = new System.Drawing.Point(12, 43);
             this.txtEncouragement.Name = "txtEncouragement";
-            this.txtEncouragement.Size = new System.Drawing.Size(424, 120);
+            this.txtEncouragement.Size = new System.Drawing.Size(424, 94);
             this.txtEncouragement.TabIndex = 2;
             // 
             // toolstrip
             // 
             this.toolstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnResources,
-            this.mnuFile});
+            this.mnuFile,
+            this.btnWhatHurts});
             this.toolstrip.Location = new System.Drawing.Point(0, 0);
             this.toolstrip.Name = "toolstrip";
             this.toolstrip.Size = new System.Drawing.Size(448, 25);
@@ -79,8 +82,8 @@
             this.btnResources.Image = ((System.Drawing.Image)(resources.GetObject("btnResources.Image")));
             this.btnResources.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnResources.Name = "btnResources";
-            this.btnResources.Size = new System.Drawing.Size(73, 22);
-            this.btnResources.Text = "&Resources...";
+            this.btnResources.Size = new System.Drawing.Size(111, 22);
+            this.btnResources.Text = "Online &Resources...";
             this.btnResources.Click += new System.EventHandler(this.btnResources_Click);
             // 
             // mnuFile
@@ -99,21 +102,31 @@
             // btnSettings
             // 
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(125, 22);
+            this.btnSettings.Size = new System.Drawing.Size(152, 22);
             this.btnSettings.Text = "Settings...";
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(122, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // btnFileQuit
             // 
             this.btnFileQuit.Name = "btnFileQuit";
-            this.btnFileQuit.Size = new System.Drawing.Size(125, 22);
+            this.btnFileQuit.Size = new System.Drawing.Size(152, 22);
             this.btnFileQuit.Text = "&Quit";
             this.btnFileQuit.Click += new System.EventHandler(this.btnFileQuit_Click);
+            // 
+            // btnWhatHurts
+            // 
+            this.btnWhatHurts.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnWhatHurts.Image = ((System.Drawing.Image)(resources.GetObject("btnWhatHurts.Image")));
+            this.btnWhatHurts.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnWhatHurts.Name = "btnWhatHurts";
+            this.btnWhatHurts.Size = new System.Drawing.Size(76, 22);
+            this.btnWhatHurts.Text = "What &Hurts?";
+            this.btnWhatHurts.Click += new System.EventHandler(this.btnWhatHurts_Click);
             // 
             // btnShowStretch
             // 
@@ -179,11 +192,26 @@
             this.systemTrayIcon.Visible = true;
             this.systemTrayIcon.DoubleClick += new System.EventHandler(this.systemTrayIcon_DoubleClick);
             // 
+            // lblPrompt
+            // 
+            this.lblPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPrompt.AutoEllipsis = true;
+            this.lblPrompt.AutoSize = true;
+            this.lblPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrompt.Location = new System.Drawing.Point(12, 25);
+            this.lblPrompt.Name = "lblPrompt";
+            this.lblPrompt.Size = new System.Drawing.Size(213, 18);
+            this.lblPrompt.TabIndex = 4;
+            this.lblPrompt.Text = "It\'s time for a break, {user}!";
+            // 
             // frmEncouragement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 188);
+            this.Controls.Add(this.lblPrompt);
             this.Controls.Add(this.btnNotNow);
             this.Controls.Add(this.btnShowStretch);
             this.Controls.Add(this.toolstrip);
@@ -220,5 +248,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem btnFileQuit;
+        private System.Windows.Forms.ToolStripButton btnWhatHurts;
+        private System.Windows.Forms.Label lblPrompt;
     }
 }
