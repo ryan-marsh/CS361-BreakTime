@@ -4,6 +4,7 @@ using BreakTime;
 
 namespace UnitTests
 {
+    // This class tests whether or not stretch data can be obtained from the web server.
     [TestClass]
     public class StretchTest
     {

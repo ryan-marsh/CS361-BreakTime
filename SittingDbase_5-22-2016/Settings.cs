@@ -17,7 +17,7 @@ namespace BreakTime
             ReadUserSettings();
         }
 
-        private static void ReadUserSettings()
+        public static void ReadUserSettings()
         {
             UserSettings settings = null;
             // see: http://stackoverflow.com/questions/18242429/how-to-deserialize-json-data

@@ -4,6 +4,8 @@ using BreakTime;
 
 namespace UnitTests
 {
+    // This class tests the cases where encouragement data should be
+    // pulled from the web server or not pulled from the web server.
     [TestClass]
     public class EncourageTest
     {
