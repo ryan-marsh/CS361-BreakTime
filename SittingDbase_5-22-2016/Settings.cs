@@ -97,7 +97,7 @@ namespace BreakTime
         /// <summary>
         /// Gets the path string to the resources page from the server.
         /// </summary>
-        public static readonly string ResourcesPath = "encourage";
+        public static readonly string ResourcesPath = "/resources/resources.html";
 
         #endregion
 
